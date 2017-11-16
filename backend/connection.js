@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var connection = mysql.createPool({
     host: 'db',
-    user: 'root',
+    user: 'djur',
     password: 'admin',
     database: 'hackernews'
 });

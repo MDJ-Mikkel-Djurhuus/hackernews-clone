@@ -37,3 +37,6 @@ cd mysql_init
 rm dbcreation.sql
 sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/mysql/mysql_init/dbcreation.sql
 sudo chmod u+x ./dbcreation.sql
+
+cd ..
+cd ..

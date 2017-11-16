@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
    db:
@@ -29,5 +29,5 @@ services:
     ports:
        - "8080:8080"
     depends_on:
-      backend:
-       condition: service_healthy
+     backend:
+      condition: service_healthy

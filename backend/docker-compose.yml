@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+   db:
+    image: mysql:5.7
+    volumes:
+       - ./mysql/data:/var/lib/mysql
+       - ./mysql/mysql_init:/docker-entrypoint-initdb.d
+    environment:
+       MYSQL_ROOT_PASSWORD: admin
+       MYSQL_DATABASE: hackernews
+    ports:
+       - "3306:3306"
+   api:
+    build: .
+    ports:
+       - "8081:8081"
+    depends_on:
+       - db
+   website:
+    image: technews/website:latest
+    ports:
+       - "8080:8080"
+    depends_on:
+       - api

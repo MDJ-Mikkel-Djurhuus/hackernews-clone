@@ -21,16 +21,19 @@ sudo usermod -aG docker $(whoami)
 
 # Installing the deployment script, which we will call from a Jenkins build job
 
-wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/docker-compose.yml
-chmod u+x ./docker-compose.yml
+rm docker-compose.yml
+sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/docker-compose.yml
+sudo chmod u+x ./docker-compose.yml
 
-wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/deploy.sh
-chmod u+x ./deploy.sh
+rm deploy.sh
+sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/deploy.sh
+sudo chmod u+x ./deploy.sh
 
-mkdir mysql
+sudo mkdir mysql
 cd mysql
-mkdir data
-mkdir mysql_init
+sudo mkdir data
+sudo mkdir mysql_init
 cd mysql_init
-wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/mysql/mysql_init/dbcreation.sql
-chmod u+x ./dbcreation.sql
+rm dbcreation.sql
+sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/mysql/mysql_init/dbcreation.sql
+sudo chmod u+x ./dbcreation.sql

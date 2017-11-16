@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const path = require("path");
-var Post = require("./models/post");
-var User = require("./models/user");
+var Post = require("../models/post");
+var User = require("../models/user");
 
 
 router.get('/latest', function(req, res, next) {

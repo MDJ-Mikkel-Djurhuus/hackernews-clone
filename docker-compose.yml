@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
    db:
@@ -12,13 +12,13 @@ services:
     ports:
        - "3306:3306"
    backend:
-    image: mikkeldjurhuus/hackernews-frontend
+    image: mikkeldjurhuus/hackernews-backend
     ports:
        - "8081:8081"
     depends_on:
        - db
    frontend:
-    image: mikkeldjurhuus/hackernews-backend
+    image: mikkeldjurhuus/hackernews-frontend
     ports:
        - "8080:8080"
     depends_on:

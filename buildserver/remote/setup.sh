@@ -9,5 +9,19 @@ apt-cache policy docker-engine
 sudo apt-get install -y docker-engine
 sudo usermod -aG docker $(whoami)
 sudo apt-get install -y docker-compose
+
+# Installing the deployment script, which we will call from a Jenkins build job
+
+wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/docker-compose.yml
+chmod u+x ./docker-compose.yml
+
 wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/deploy.sh
 chmod u+x ./deploy.sh
+
+mkdir mysql
+cd mysql
+mkdir data
+mkdir mysql_init
+cd mysql_init
+wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/mysql/mysql_init/dbcreation.sql
+chmod u+x ./dbcreation.sql

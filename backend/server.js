@@ -3,9 +3,9 @@ const cors = require('cors');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require("path");
-const index = require(path.join(__dirname, "routes", "index.js"));
-const post = require(path.join(__dirname, "routes", "post.js"));
-const user = require(path.join(__dirname, "routes", "user.js"));
+const index = require("routes/index.js");
+const post = require("routes/post.js");
+const user = require("routes/user.js");
 
 const app = express();
 

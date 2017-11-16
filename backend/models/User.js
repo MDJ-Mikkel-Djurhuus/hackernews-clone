@@ -1,5 +1,5 @@
 const path = require("path");
-var db = require(path.join(__dirname, "..", "connection"));
+var db = require("../connection");
 
 var User = {
     getAllUsers: function(callback) {

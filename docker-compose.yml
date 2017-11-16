@@ -11,15 +11,15 @@ services:
        MYSQL_DATABASE: hackernews
     ports:
        - "3306:3306"
-   api:
-    build: .
+   backend:
+    image: mikkeldjurhuus/hackernews-frontend
     ports:
        - "8081:8081"
     depends_on:
        - db
-   website:
-    image: technews/website:latest
+   frontend:
+    image: mikkeldjurhuus/hackernews-backend
     ports:
        - "8080:8080"
     depends_on:
-       - api
+       - backend

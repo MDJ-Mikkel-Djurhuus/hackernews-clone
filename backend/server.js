@@ -18,9 +18,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//Enable collection of default metrics
-const metricsInterval = client.collectDefaultMetrics();
-
 const httpRequestDurationMicroseconds = new client.Histogram({
     name: 'http_request_duration_ms',
     help: 'Duration of HTTP requests in ms',
@@ -34,25 +31,25 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/', index);
-app.use('/post', post);
-app.use('/user', user);
 app.get('/metrics', (req, res) => {
     res.set('Content-Type', register.contentType);
     res.end(register.metrics());
 });
+app.use('/', index);
+app.use('/post', post);
+app.use('/user', user);
 
 // Runs after each requests
 app.use((req, res, next) => {
     const responseTimeInMs = Date.now() - res.locals.startEpoch;
-
-    console.log(req.route);
     httpRequestDurationMicroseconds
         .labels(req.method, req.route.path, res.statusCode)
         .observe(responseTimeInMs);
-
     next();
 })
+
+//Enable collection of default metrics
+const metricsInterval = client.collectDefaultMetrics();
 
 const server = app.listen(8081, function () {
     console.log("listening on 8081");

@@ -9,8 +9,10 @@ const post = require("./routes/post.js");
 const user = require("./routes/user.js");
 
 const client = require('prom-client');
-const register = new client.Registry();
 // const metrics = require("./routes/metrics.js");
+//Enable collection of default metrics
+const metricsInterval = client.collectDefaultMetrics();
+
 
 const app = express();
 
@@ -32,9 +34,8 @@ app.use((req, res, next) => {
 })
 
 app.get('/metrics', (req, res) => {
-    console.log(register)
-	res.set('Content-Type', register.contentType);
-	res.end(register.metrics());
+	res.set('Content-Type', client.register.contentType);
+	res.end(client.register.metrics());
 });
 app.use('/', index);
 app.use('/post', post);
@@ -49,9 +50,6 @@ app.use((req, res, next) => {
         .observe(responseTimeInMs);
     next();
 })
-
-//Enable collection of default metrics
-const metricsInterval = client.collectDefaultMetrics();
 
 const server = app.listen(8081, function () {
     console.log("listening on 8081");

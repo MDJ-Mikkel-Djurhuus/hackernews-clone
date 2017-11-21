@@ -42,7 +42,7 @@ export default {
   line-height: 20px;
 }
 .post .score {
-  color: #f60;
+  color: var(--main-color);
   font-size: 1.1em;
   font-weight: 700;
   position: absolute;

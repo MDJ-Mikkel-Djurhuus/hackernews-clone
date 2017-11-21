@@ -35,6 +35,7 @@ a {
 a,
 body {
   color: #34495e;
+  --main-color: green;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -46,7 +47,7 @@ body {
   /* overflow-y: scroll; */
 }
 .header {
-  background-color: #f60;
+  background-color: var(--main-color);
   position: fixed;
   z-index: 999;
   height: 55px;

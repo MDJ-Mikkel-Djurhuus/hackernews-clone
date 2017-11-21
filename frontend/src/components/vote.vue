@@ -71,7 +71,7 @@ export default {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #f60;
+  background-color: var(--main-color);
   cursor: pointer;
 }
 .vote img {

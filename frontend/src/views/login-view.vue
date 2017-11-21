@@ -105,7 +105,7 @@ export default {
   width: 100%;
   transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   justify-content: space-around;
-  color: #ff6600;
+  color: var(--main-color);
 }
 .container {
   flex: 0 0 90%;
@@ -127,7 +127,7 @@ input[type="text"] {
   margin-top: 20px;
 }
 input[type="button"] {
-  background-color: #ff6600;
+  background-color: var(--main-color);
   border: 2px solid white;
   color: white;
   padding: 10px 20px;

@@ -112,7 +112,7 @@ export default {
   letter-spacing: 0.1em;
   font-variant: all-petite-caps;
   font-weight: 500;
-  color: orange;
+  color: var(--main-color);
 }
 .list {
   position: absolute;

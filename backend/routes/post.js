@@ -2,6 +2,22 @@ var express = require('express');
 var router = express.Router();
 const path = require("path");
 var Post = require("../models/post");
+// setInterval(() => {
+// 	logger.level = 'debug';
+// 	logger.debug("Some debug message");
+// }, 2000);
+
+const log4js = require('log4js');
+const logger = log4js.getLogger();
+log4js.configure({
+  appenders: {
+    console: { type: "console" },
+    logfaces: { type: 'logFaces-HTTP', url: 'http://localhost:9700' }
+  },
+  categories: {
+    default: { appenders: [ 'console', 'logfaces' ], level: 'info' }
+  }
+});
 
 router.get('/:id?', function (req, res, next) {
     if (req.params.id) {

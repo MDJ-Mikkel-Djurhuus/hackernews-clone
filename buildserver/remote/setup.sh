@@ -32,7 +32,7 @@ sudo chmod u+x ./deploy.sh
 
 sudo rm wait-for-it.sh
 sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/wait-for-it.sh
-sudo chmod u+x ./deploy.sh
+sudo chmod u+x ./wait-for-it.sh
 
 sudo mkdir mysql
 cd mysql

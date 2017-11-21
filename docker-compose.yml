@@ -4,8 +4,9 @@ services:
    db:
     image: mysql:5.7
     volumes:
-       - ./data:/var/lib/mysql
+       - ./mysql/data:/var/lib/mysql
        - ./mysql/mysql_init:/docker-entrypoint-initdb.d
+       - ./mysql/files:/var/lib/mysql-files/
     environment:
        MYSQL_ROOT_PASSWORD: admin
        MYSQL_DATABASE: hackernews

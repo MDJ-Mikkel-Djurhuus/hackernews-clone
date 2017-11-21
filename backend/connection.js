@@ -22,24 +22,24 @@ var DB = (function () {
             if (err) {
                 if (connection)
                     connection.release();
-                callback(null, err);
+                callback(err, null);
                 throw err;
             }
 
             connection.query(query, params, function (err, rows) {
                 connection.release();
                 if (!err) {
-                    callback(rows);
+                    callback(null, rows);
                 }
                 else {
-                    callback(null, err);
+                    callback(err, null);
                 }
 
             });
 
             connection.on('error', function (err) {
                 connection.release();
-                callback(null, err);
+                callback(err, null);
                 throw err;
             });
         });

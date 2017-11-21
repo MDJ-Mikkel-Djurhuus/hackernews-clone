@@ -29,10 +29,9 @@ sudo rm deploy.sh
 sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/deploy.sh
 sudo chmod u+x ./deploy.sh
 
-
-sudo rm wait-for-it.sh
-sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/buildserver/remote/wait-for-it.sh
-sudo chmod u+x ./wait-for-it.sh
+sudo rm prometheus.yml
+sudo wget https://raw.githubusercontent.com/MDJ-Mikkel-Djurhuus/hackernews-clone/master/prometheus.yml
+sudo chmod u+x ./prometheus.yml
 
 sudo mkdir mysql
 cd mysql

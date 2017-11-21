@@ -32,8 +32,9 @@ app.use((req, res, next) => {
 })
 
 app.get('/metrics', (req, res) => {
-    res.set('Content-Type', register.contentType);
-    res.end(register.metrics());
+    console.log(register)
+	res.set('Content-Type', register.contentType);
+	res.end(register.metrics());
 });
 app.use('/', index);
 app.use('/post', post);

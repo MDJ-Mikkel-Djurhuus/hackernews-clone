@@ -27,6 +27,7 @@ router.get('/:id?', function (req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
         });
     } else {
         Post.getAllPosts(function (err, rows) {
@@ -35,6 +36,7 @@ router.get('/:id?', function (req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
         });
     }
 });
@@ -46,6 +48,7 @@ router.get('/ids', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 
@@ -57,6 +60,7 @@ router.put('/', function (req, res, next) {
         } else {
             res.json(result);
         }
+        next()
     });
 });
 
@@ -68,6 +72,7 @@ router.post('/', function (req, res, next) {
         } else {
             res.json(result);
         }
+        next()
     });
 });
 
@@ -80,6 +85,7 @@ router.delete('/:id', function (req, res, next) {
         } else {
             res.json(count);
         }
+        next()
 
     });
 });
@@ -94,6 +100,7 @@ router.put('/:id', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 router.get('/comment', function (req, res, next) {
@@ -104,6 +111,7 @@ router.get('/comment', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 router.get('/comment/ids', function (req, res, next) {
@@ -114,6 +122,7 @@ router.get('/comment/ids', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 
@@ -125,6 +134,7 @@ router.get('/story', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 router.get('/story/ids', function (req, res, next) {
@@ -135,6 +145,7 @@ router.get('/story/ids', function (req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 module.exports = router;

@@ -15,6 +15,7 @@ router.get('/:username?', function(req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
         });
     } else {
 
@@ -25,6 +26,7 @@ router.get('/:username?', function(req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
 
         });
     }
@@ -38,6 +40,7 @@ router.get('/:username/score', function(req, res, next) {
         } else {
             res.json(result);
         }
+        next()
     });
 });
 
@@ -48,6 +51,7 @@ router.get('/:username/posts', function(req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 
@@ -60,6 +64,7 @@ router.get('/:username/comments', function(req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
         });
     }
 });
@@ -72,6 +77,7 @@ router.get('/:username/stories', function(req, res, next) {
             } else {
                 res.json(rows);
             }
+            next()
         });
     }
 });
@@ -85,6 +91,7 @@ router.post('/', function(req, res, next) {
         } else {
             res.json(req.body);
         }
+        next()
     });
 });
 
@@ -96,6 +103,7 @@ router.put('/', function(req, res, next) {
         } else {
             res.json(req.body);
         }
+        next()
     });
 });
 
@@ -108,6 +116,7 @@ router.delete('/:id', function(req, res, next) {
         } else {
             res.json(count);
         }
+        next()
 
     });
 });
@@ -121,6 +130,7 @@ router.put('/:id', function(req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
     });
 });
 module.exports = router;

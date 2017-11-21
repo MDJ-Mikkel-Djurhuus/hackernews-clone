@@ -12,6 +12,7 @@ router.get('/latest', function(req, res, next) {
         } else {
             res.json(rows[0].hanesst_id);
         }
+        next()
 
     });
 });
@@ -26,6 +27,7 @@ router.post('/login', function(req, res, next) {
         } else {
             res.json(rows);
         }
+        next()
 
     });
 });
@@ -38,6 +40,7 @@ router.put('/vote', function(req, res, next) {
         } else {
             res.json(result);
         }
+        next()
 
     });
 });
@@ -50,6 +53,7 @@ router.delete('/vote', function(req, res, next) {
         } else {
             res.json(result);
         }
+        next()
 
     });
 });
@@ -63,6 +67,7 @@ router.post('/vote', function(req, res, next) {
         } else {
             res.json(result);
         }
+        next()
 
     });
 });

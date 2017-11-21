@@ -40,6 +40,7 @@ app.use('/user', user);
 router.get('/metrics', (req, res) => {
     res.set('Content-Type', register.contentType);
     res.end(register.metrics());
+    next();
 });
 
 // Runs after each requests

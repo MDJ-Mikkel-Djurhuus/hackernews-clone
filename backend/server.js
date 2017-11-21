@@ -37,10 +37,9 @@ app.use((req, res, next) => {
 app.use('/', index);
 app.use('/post', post);
 app.use('/user', user);
-router.get('/metrics', (req, res) => {
+app.get('/metrics', (req, res) => {
     res.set('Content-Type', register.contentType);
     res.end(register.metrics());
-    next();
 });
 
 // Runs after each requests

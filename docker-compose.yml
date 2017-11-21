@@ -4,7 +4,7 @@ services:
    db:
     image: mysql:5.7
     volumes:
-       - ./mysql/data:/var/lib/mysql
+       - ./data:/var/lib/mysql
        - ./mysql/mysql_init:/docker-entrypoint-initdb.d
     environment:
        MYSQL_ROOT_PASSWORD: admin
@@ -19,10 +19,9 @@ services:
        - "8081:8081"
     depends_on:
        - db
-    command: ["./wait-for-it.sh", "db:3306", "--", "python", "app.py"]
    frontend:
     image: mikkeldjurhuus/hackernews-frontend
     ports:
        - "8080:8080"
     depends_on:
-     backend:
+       - backend

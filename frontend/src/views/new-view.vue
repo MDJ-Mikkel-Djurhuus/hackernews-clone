@@ -66,7 +66,7 @@ textarea {
   flex: 100%;
 }
 input[type="button"] {
-  background-color: #ff6600;
+  background-color: var(--main-color);
   border: 2px solid white;
   color: white;
   padding: 10px 20px;

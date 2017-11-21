@@ -46,7 +46,7 @@ app.get('/metrics', (req, res) => {
 app.use((req, res, next) => {
     const responseTimeInMs = Date.now() - res.locals.startEpoch;
 
-    console.log(req);
+    console.log(req.route);
     httpRequestDurationMicroseconds
         .labels(req.method, req.route.path, res.statusCode)
         .observe(responseTimeInMs);

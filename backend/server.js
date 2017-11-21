@@ -19,19 +19,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Enable collection of default metrics
-const metricsInterval = client.collectDefaultMetrics()
+const metricsInterval = client.collectDefaultMetrics();
 
 const httpRequestDurationMicroseconds = new client.Histogram({
     name: 'http_request_duration_ms',
     help: 'Duration of HTTP requests in ms',
-    labelNames: ['route'],
+    labelNames: ['method', 'route', 'code'],
     buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500]
 })
 
 // Runs before each requests
 app.use((req, res, next) => {
-    res.locals.startEpoch = Date.now()
-    next()
+    res.locals.startEpoch = Date.now();
+    next();
 })
 
 app.use('/', index);
@@ -45,31 +45,32 @@ router.get('/metrics', (req, res) => {
 
 // Runs after each requests
 app.use((req, res, next) => {
-    const responseTimeInMs = Date.now() - res.locals.startEpoch
+    const responseTimeInMs = Date.now() - res.locals.startEpoch;
 
+    console.log(req);
     httpRequestDurationMicroseconds
         .labels(req.method, req.route.path, res.statusCode)
-        .observe(responseTimeInMs)
+        .observe(responseTimeInMs);
 
-    next()
+    next();
 })
 
 const server = app.listen(8081, function () {
-    console.log("listening on 8081")
+    console.log("listening on 8081");
 })
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-    clearInterval(metricsInterval)
-  
+    clearInterval(metricsInterval);
+
     server.close((err) => {
-      if (err) {
-        console.error(err)
-        process.exit(1)
-      }
-  
-      process.exit(0)
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+
+        process.exit(0);
     })
-  })
+})
 
 module.exports = server;

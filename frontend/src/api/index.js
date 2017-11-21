@@ -1,4 +1,4 @@
-const HOST = "http://backend:8081"; // name of docker service
+const HOST = "http://146.185.141.49:8081"; // name of docker service
 const header = {
     Accept: "application/json",
     "Content-Type": "application/json"

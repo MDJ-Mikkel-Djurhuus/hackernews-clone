@@ -7,7 +7,7 @@
         <span class="host"> ({{ post.post_url | host }})</span>
       </template>
       <template v-else>
-        <router-link :to="'/post/' + post.hanesst_id">{{ post.post_title }}</router-link>
+        <router-link :to="'/post/' + post.id">{{ post.post_title }}</router-link>
       </template>
     </span>
     <br>
@@ -19,7 +19,7 @@
         {{ post.post_time | timeAgo }} ago
       </span>
       <span class="comments-link">
-        | <router-link :to="'/post/' + post.hanesst_id">{{ post.post_kids !== null ? post.post_kids.split(",").length : 0 }} comments</router-link>
+        | <router-link :to="'/post/' + post.id">{{ post.post_kids !== null ? post.post_kids.split(",").length : 0 }} comments</router-link>
       </span>
     </span>
   </li>

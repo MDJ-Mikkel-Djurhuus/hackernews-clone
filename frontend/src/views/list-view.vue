@@ -7,7 +7,7 @@
     </div>
     <div class="list" :key="displayedView" v-if="displayedView > 0">
       <ul>
-        <post v-for="post in this[this.sort]" :post="post" :key="post.hanesst_id">
+        <post v-for="post in this[this.sort]" :post="post" :key="post.id">
         </post>
       </ul>
     </div>

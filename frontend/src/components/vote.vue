@@ -27,7 +27,7 @@ export default {
   created() {
     if (this.loggedUser.username) {
       getVote({
-        hanesst_id: this.id,
+        id: this.id,
         username: this.loggedUser.username
       }).then(result => {
         this.value = result ? result.value : 0;
@@ -38,14 +38,14 @@ export default {
     Vote(value) {
       if (value == 0) {
         deleteVote({
-          hanesst_id: this.id,
+          id: this.id,
           username: this.loggedUser.username
         }).then(result => {
           this.value = 0;
         });
       } else {
         insertVote({
-          hanesst_id: this.id,
+          id: this.id,
           username: this.loggedUser.username,
           value: value
         }).then(result => {

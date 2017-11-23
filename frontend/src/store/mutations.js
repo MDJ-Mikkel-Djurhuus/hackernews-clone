@@ -12,7 +12,7 @@ export default {
     SET_POSTS: (state, { posts }) => {
         posts.forEach(post => {
             if (post) {
-                Vue.set(state.posts, post.hanesst_id, post);
+                Vue.set(state.posts, post.id, post);
             }
         })
     },

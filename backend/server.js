@@ -48,7 +48,6 @@ app.use((req, res, next) => {
     httpRequestDurationMicroseconds
         .labels(req.method, req.route.path, res.statusCode)
         .observe(responseTimeInMs);
-    next();
 })
 
 const server = app.listen(8081, function () {

@@ -34,8 +34,8 @@ app.use((req, res, next) => {
 })
 
 app.get('/metrics', (req, res) => {
-	res.set('Content-Type', client.register.contentType);
-	res.end(client.register.metrics());
+    res.set('Content-Type', client.register.contentType);
+    res.end(client.register.metrics());
 });
 app.use('/', index);
 app.use('/post', post);
@@ -43,13 +43,12 @@ app.use('/user', user);
 
 // Runs after each requests
 app.use((req, res, next) => {
-    const responseTimeInMs = Date.now() - res.locals.startEpoch;
-    console.log(responseTimeInMs);
-    if(!req.route)
-    console.log(req);
-    httpRequestDurationMicroseconds
-        .labels(req.method, req.route.path, res.statusCode)
-        .observe(responseTimeInMs);
+    if (req.route) {
+        const responseTimeInMs = Date.now() - res.locals.startEpoch;
+        httpRequestDurationMicroseconds
+            .labels(req.method, req.route.path, res.statusCode)
+            .observe(responseTimeInMs);
+    }
 })
 
 const server = app.listen(8081, function () {

@@ -23,14 +23,14 @@ export function fetchPost(id) {
     })
 }
 
-export function insertVote({ username, hanesst_id, value }) {
+export function insertVote({ username, id, value }) {
     return new Promise((resolve, reject) => {
         fetch(HOST + "/vote", {
             method: "put",
             headers: header,
             body: JSON.stringify({
                 username: username,
-                hanesst_id: hanesst_id,
+                id: id,
                 value: value
             })
         }).then(function(response) {
@@ -42,14 +42,14 @@ export function insertVote({ username, hanesst_id, value }) {
         })
     })
 }
-export function deleteVote({ username, hanesst_id }) {
+export function deleteVote({ username, id }) {
     return new Promise((resolve, reject) => {
         fetch(HOST + "/vote", {
             method: "delete",
             headers: header,
             body: JSON.stringify({
                 username: username,
-                hanesst_id: hanesst_id
+                id: id
             })
         }).then(function(response) {
             return response.json();
@@ -61,14 +61,14 @@ export function deleteVote({ username, hanesst_id }) {
     })
 }
 
-export function getVote({ username, hanesst_id }) {
+export function getVote({ username, id }) {
     return new Promise((resolve, reject) => {
         fetch(HOST + "/vote", {
             method: "post",
             headers: header,
             body: JSON.stringify({
                 username: username,
-                hanesst_id: hanesst_id
+                id: id
             })
         }).then(function(response) {
             return response.json();
@@ -117,7 +117,7 @@ export function fetchIdsOfType(type) {
             return response.json();
         }).then(function(json) {
             if (json.length > 0) {
-                resolve(json.map(x => x.hanesst_id));
+                resolve(json.map(x => x.id));
             } else {
                 reject("no posts");
             }
@@ -189,7 +189,7 @@ export function postComment(text, parent, user) {
             body: JSON.stringify({
                 "pwd_hash": user.pwd_hash,
                 "username": user.username,
-                "post_parent": parent.hanesst_id,
+                "post_parent": parent.id,
                 "post_type": "comment",
                 "post_title": "Comment on: " + parent.post_title,
                 "post_text": text

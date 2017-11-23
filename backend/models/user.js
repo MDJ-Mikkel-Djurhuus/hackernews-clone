@@ -31,7 +31,7 @@ var User = {
         let query = `SELECT post.username, SUM(value) as score
         FROM vote vote
         left join post post
-        on vote.hanesst_id=post.hanesst_id
+        on vote.post_id=post.id
         where post.username=?
         group by post.username`
         return db.query(query, [username], callback);

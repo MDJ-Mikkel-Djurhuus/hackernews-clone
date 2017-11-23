@@ -22,12 +22,14 @@ var DB = (function () {
             if (err) {
                 if (connection)
                     connection.release();
+                    console.log("release");
                 callback(err, null);
                 throw err;
             }
 
             connection.query(query, params, function (err, rows) {
                 connection.release();
+                console.log("release");
                 if (!err) {
                     callback(null, rows);
                 }
@@ -39,6 +41,7 @@ var DB = (function () {
 
             connection.on('error', function (err) {
                 connection.release();
+                console.log("release");
                 callback(err, null);
                 throw err;
             });

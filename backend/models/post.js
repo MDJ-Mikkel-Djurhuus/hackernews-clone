@@ -15,7 +15,7 @@ var db = require("../connection");
 var Post = {
     getAllPosts: function(callback) {
         console.log("getAllPosts")
-        return db.query("Select * from post", callback);
+        return db.query("Select * from post", null,callback);
     },
 
     getPostById: function(id, callback) {
@@ -41,7 +41,7 @@ var Post = {
         if (type === "story" || type === "comment") {
             return db.query("select hanesst_id from post where post_type=?", [type], callback);
         } else {
-            return db.query("select hanesst_id from post", callback);
+            return db.query("select hanesst_id from post",null, callback);
         }
     },
 
@@ -52,7 +52,7 @@ var Post = {
 
     getAllStories: function(callback) {
         console.log("getAllStories")
-        return db.query("Select * from post where post_type='story'", callback);
+        return db.query("Select * from post where post_type='story'", null,callback);
     },
 
     getStoriesByUser: function(username, callback) {
@@ -62,7 +62,7 @@ var Post = {
 
     getAllComments: function(callback) {
         console.log("getAllComments")
-        return db.query("Select * from post where post_type='comment'", callback);
+        return db.query("Select * from post where post_type='comment'", null,callback);
     },
 
     getCommentsByUser: function(username, callback) {
@@ -72,7 +72,7 @@ var Post = {
 
     getLatest: function(callback) {
         console.log("getLatest")
-        return db.query("Select * from post ORDER BY post_time DESC LIMIT 1", callback);
+        return db.query("Select * from post ORDER BY post_time DESC LIMIT 1",null, callback);
     },
 
     addPost: function(Post, callback) {

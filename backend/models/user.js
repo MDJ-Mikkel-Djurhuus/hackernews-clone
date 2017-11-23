@@ -4,7 +4,7 @@ var db = require("../connection");
 var User = {
     getAllUsers: function(callback) {
         console.log("getAllUsers")
-        return db.query("Select * from user", callback);
+        return db.query("Select * from user", null,callback);
     },
     getUserById: function(username, callback) {
         console.log("getUserById", username)

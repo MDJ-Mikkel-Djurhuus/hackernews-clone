@@ -19,6 +19,7 @@ var pool = mysql.createPool({
 var DB = (function () {
     function _query(query, params, callback) {
         pool.getConnection(function (err, connection) {
+            console.log("getconnection")
             if (err) {
                 if (connection)
                     connection.release();

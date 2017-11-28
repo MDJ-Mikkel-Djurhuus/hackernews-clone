@@ -9,12 +9,13 @@ export default {
     FETCH_LIST_DATA: ({ commit, dispatch, state }, { type }) => {
         commit('SET_ACTIVE_TYPE', { type })
         return fetchIdsOfType(type)
-            .then(ids => commit('SET_LIST', { type, ids }))
+            .then(ids => {console.log("IDS",ids);commit('SET_LIST', { type, ids })})
             .then(() => dispatch('ENSURE_ACTIVE_POSTS'))
     },
 
     // ensure all active posts are fetched
     ENSURE_ACTIVE_POSTS: ({ dispatch, getters }) => {
+        console.log("ENSURE_ACTIVE_POSTS")
         return dispatch('FETCH_POSTS', { ids: getters.activeIds })
     },
 
@@ -32,17 +33,18 @@ export default {
             }
             return false
         })
+        console.log(ids)
         if (ids.length) {
-            return fetchPosts(ids).then(posts => commit('SET_POSTS', { posts }))
+            return fetchPosts(ids).then(posts => {console.log("setpost", posts);commit('SET_POSTS', { posts })})
         } else {
             return Promise.resolve()
         }
     },
 
     FETCH_USER: ({ commit, state }, { username }) => {
-        return state.users[username] ?
-            Promise.resolve(state.users[username]) :
-            fetchUser(username).then(user => {
+        return state.users[username]
+            ? Promise.resolve(state.users[username])
+            : fetchUser(username).then(user => {
                 commit('SET_USER', { username, user })
             })
     }

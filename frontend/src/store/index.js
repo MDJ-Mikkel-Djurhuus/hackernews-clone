@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        activeType: "stories",
+        activeType: "story",
         postsPerPage: 20,
         posts: {},
         post: {},

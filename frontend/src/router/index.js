@@ -9,8 +9,11 @@ import New from '@/views/new-view'
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
+    fallback: false,
+    scrollBehavior: () => ({ y: 0 }),
     routes: [{
-            path: '/list',
+            path: '/list/:page?',
             name: 'List',
             component: List
         },
@@ -40,7 +43,7 @@ export default new Router({
             component: Login
         },
         {
-            path: '*',
+            path: '/',
             redirect: "/list"
         },
         // {

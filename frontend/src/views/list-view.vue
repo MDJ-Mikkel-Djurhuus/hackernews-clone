@@ -1,5 +1,12 @@
 <template>
   <div class="list-view">
+    <div class="news-list-nav">
+      <router-link v-if="page > 1" :to="'/list/' + (page - 1)">&lt; prev</router-link>
+      <a v-else class="disabled">&lt; prev</a>
+      <span>{{ page }}/{{ maxPage }}</span>
+      <router-link v-if="hasMore" :to="'/list/' + (page + 1)">more &gt;</router-link>
+      <a v-else class="disabled">more &gt;</a>
+    </div>
     <div class="filter">
       <a @click="sort = 'top'">highest score</a>
       <a @click="sort = 'new'">newest</a>
@@ -7,7 +14,7 @@
     </div>
     <div class="list" :key="displayedView" v-if="displayedView > 0">
       <ul>
-        <post v-for="post in this[this.sort]" :post="post" :key="post.id">
+        <post v-for="post in displayedPosts" :post="post" :key="post.id">
         </post>
       </ul>
     </div>
@@ -21,69 +28,81 @@ export default {
   components: {
     post: Post
   },
-  props: {
-    type: String
-  },
   data() {
     return {
       displayedView: Number(this.$route.params.view) || 1,
-      displayedPosts: [],
-      sort: "top"
+      displayedPosts: this.$store.getters.activeItems,
+      type: "story"
+      // sort: "top"
     };
   },
   computed: {
-    top() {
-      return this.displayedPosts.sort((a, b) => {
-        if (a.post_score < b.post_score) return 1;
-        if (a.post_score > b.post_score) return -1;
-        return 0;
-      });
+    page () {
+      return Number(this.$route.params.page) || 1
     },
-    new() {
-      return this.displayedPosts.sort((a, b) => {
-        if (a.post_time < b.post_time) return 1;
-        if (a.post_time > b.post_time) return -1;
-        return 0;
-      });
+    maxPage () {
+      const { postsPerPage, lists } = this.$store.state;
+      console.log(this.type)
+      return lists[this.type].length ? Math.ceil(lists[this.type].length / postsPerPage) : 1;
     },
-    comments() {
-      return this.displayedPosts.sort((a, b) => {
-        if (a.post_kids === null && b.post_kids === null)return 0;
-        if (a.post_kids === null) return 1;
-        if (b.post_kids === null) return -1;
-        let kids1 = a.post_kids.split(",").length;
-        let kids2 = b.post_kids.split(",").length;
-        if (kids1 < kids2) return 1;
-        if (kids1 > kids2) return -1;
-        return 0;
-      });
-    }
+    hasMore () {
+      return this.page < this.maxPage
+    },
+    // top() {
+    //   return this.displayedPosts.sort((a, b) => {
+    //     if (a.post_score < b.post_score) return 1;
+    //     if (a.post_score > b.post_score) return -1;
+    //     return 0;
+    //   });
+    // },
+    // new() {
+    //   return this.displayedPosts.sort((a, b) => {
+    //     if (a.post_time < b.post_time) return 1;
+    //     if (a.post_time > b.post_time) return -1;
+    //     return 0;
+    //   });
+    // },
+    // comments() {
+    //   return this.displayedPosts.sort((a, b) => {
+    //     if (a.post_kids === null && b.post_kids === null)return 0;
+    //     if (a.post_kids === null) return 1;
+    //     if (b.post_kids === null) return -1;
+    //     let kids1 = a.post_kids.split(",").length;
+    //     let kids2 = b.post_kids.split(",").length;
+    //     if (kids1 < kids2) return 1;
+    //     if (kids1 > kids2) return -1;
+    //     return 0;
+    //   });
+    // }
   },
   methods: {
-    loadPosts() {
+    loadPosts(to,from) {
       this.$store
         .dispatch("FETCH_LIST_DATA", {
           type: "story"
         })
         .then(() => {
           this.displayedPosts = this.$store.getters.activePosts;
-          // if (this.view < 0 || this.view > this.maxView) {
-          //   this.$router.replace(`/${this.type}/1`);
-          //   return;
-          // }
+          console.log(this.displayedPosts)
+          if (this.view < 0 || this.view > this.maxView) {
+            this.$router.replace(`/list/1`);
+            return;
+          }
           // this.transition =
           //   from === -1 ? null : to > from ? "slide-left" : "slide-right";
-          // this.displayedView = to;
-          // this.displayedPosts = this.$store.getters.activePosts;
+          this.displayedView = to;
+          this.displayedPosts = this.$store.getters.activePosts;
           // this.$bar.finish();
         });
     }
   },
   beforeMount() {
     if (this.$root._isMounted) {
-      this.loadPosts();
+      console.log("ja")
+      this.loadPosts(this.page);
     } else {
-      this.loadPosts();
+      console.log("jasdsd")
+      this.loadPosts(this.page);
     }
 
     // watch the current list for realtime updates
@@ -93,7 +112,12 @@ export default {
     //     this.displayedPosts = this.$store.getters.activePosts;
     //   });
     // });
-  }
+  },
+  watch: {
+    page (to, from) {
+      this.loadPosts(to, from)
+    }
+  },
 };
 </script>
 

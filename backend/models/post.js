@@ -20,19 +20,18 @@ var Post = {
 
     getPostById: function(id, callback) {
         console.log("getPostById", id)
-        let query = `SELECT score.val as post_score, parent.*
-        FROM (SELECT SUM(value) val, p.id
-        FROM hackernews.post p
-        left join hackernews.vote v
-        on p.id=v.post_id
-        group by p.id) as score
-        left join (SELECT group_concat(child.id) as post_kids, parent.*
-        FROM hackernews.post as parent
-        left join hackernews.post as child
-        on parent.id=child.post_parent
-        group by id) as parent
-        on parent.id=score.id
-        where parent.id=?`
+        let query = `SELECT post.*, group_concat(kids.id) as post_kids, SUM(score.val) as post_score
+        FROM hackernews.post as post
+        left join
+        (select kid.post_parent as parent, kid.id
+        from hackernews.post kid) kids
+        on post.id = kids.parent
+        left join
+        (select vote.value val, vote.post_id id
+        from hackernews.vote vote) score
+        on post.id = score.id
+        where post.id = ?
+        group by post.id;`
         return db.query(query, [id], callback);
     },
 

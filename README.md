@@ -1,7 +1,7 @@
 **Hacker News Clone**
 ---------------------------
 
-#### **Brief Overview:**
+### **Brief Overview:**
 This is a clone application of the website HackerNews. There are 3 parts to this project which are all hosted on a droplet in DigitalOcean. At: 146.185.141.49
 
 **MySQL db** - container for holding our data (on port number 3306)
@@ -10,7 +10,7 @@ This is a clone application of the website HackerNews. There are 3 parts to this
 
 **Front-end** - Website built with Vuejs (on port 8080)
 
-#### **Access:**
+### **Access:**
 **Droplet**: (146.185.141.49)
 To be able to gain access to the droplet via ssh, your machine’s public key needs to be added to the authorized list. Please contact one of the team members, with the public key ready, to be given access.
 
@@ -18,12 +18,12 @@ To be able to gain access to the droplet via ssh, your machine’s public key ne
 > Username: root
 > Password: root
 
-#### **Data, Files and Projects**:
+### **Data, Files and Projects**:
 Since the docker containers depends on volumes to save its data, the data for the database is saved on the path ./mysql/data on the droplet.
 
 The database also needs to be structured when the container is created from the official image. This is initiated by the file dbcreation.sql located at ./mysql/mysql_init on the droplet.
 
-#### **Starting/Stopping of the application**:
+### **Starting/Stopping of the application**:
 The `docker-compose.yml` file is responsible for the initialization of the application. If you look closer into it, it defines the images (read: Docker Images above) to be dockerized, sets the environment and volume, links the services among each other and link the ports between the host and the containers.
 
 To start the application, which includes all the steps above, ssh onto the droplet and type the command: 
@@ -40,7 +40,7 @@ And to stop the application, simply run
 
  `docker-compose down`
 
-#### **Node API description**:
+### **Node API description**:
 Please make sure you send JSON to our API. It probably is needed to specify in your header like so:
 > Accept   application/json 
 > Content-type application/json
@@ -50,6 +50,7 @@ https://jsonformatter.curiousconcept.com
 
 GET ROUTES
 http://146.185.141.49:8081/post/ - To get all available stories/posts.
+
 
 http://146.185.141.49:8081/post/112 - (112 being the id of story) To get a post by id .
 

@@ -2,17 +2,14 @@ import Vue from 'vue'
 
 export default {
     SET_ACTIVE_TYPE: (state, { type }) => {
-        console.log("SETACTIVETYPE")
         state.activeType = type
     },
 
     SET_LIST: (state, { type, ids }) => {
-        console.log("SETLIST")
         state.lists[type] = ids;
     },
 
     SET_POSTS: (state, { posts }) => {
-        console.log("SETPOST", posts)
         posts.forEach(post => {
             if (post) {
                 Vue.set(state.posts, post.id, post);

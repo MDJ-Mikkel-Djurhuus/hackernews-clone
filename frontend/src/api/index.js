@@ -5,7 +5,6 @@ const header = {
 };
 
 export function fetchPost(id) {
-    console.log("fetchpost", id)
     return new Promise((resolve, reject) => {
         fetch(HOST + "/post/" + id, {
             method: "get",
@@ -13,14 +12,12 @@ export function fetchPost(id) {
         }).then(function(response) {
             return response.json();
         }).then(function(json) {
-            console.log("????")
             if (json.length > 0) {
                 resolve(json[0]);
             } else {
                 reject("Post not found");
             }
         }).catch((err) => {
-            console.log("??")
             reject(err);
         })
     })
@@ -108,28 +105,20 @@ export function fetchAllPosts(type) {
     })
 }
 
-export function fetchIdsOfType(type) {
-    console.log("FETCH", type)
-    if (type !== "story" && type !== "comment") {
-        type = "story";
-    }
-    console.log(HOST + `/post${"/"+type}/ids`)
+export function fetchIdsOfType({type = "story", orderby = "post_time", direction = "desc"}) {
     return new Promise((resolve, reject) => {
         fetch(HOST + `/post${"/"+type}/ids`, {
             method: "get",
             headers: header
         }).then(function(response) {
-            console.log(response)
             return response.json();
         }).then(function(json) {
-            console.log(json)
             if (json.length > 0) {
                 resolve(json.map(x => x.id));
             } else {
                 reject("no posts");
             }
         }).catch((err) => {
-            console.log(err)
             reject(err);
         })
     })

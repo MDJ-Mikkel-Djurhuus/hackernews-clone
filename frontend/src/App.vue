@@ -2,13 +2,13 @@
   <div id="app">
     <header class="header">
       <nav class="nav">
-        <router-link to="/list">List</router-link>
+        <router-link to="/list">News</router-link>
         <template v-if="loggedUser.username">
         <router-link to="/new">Submit</router-link>
         <router-link :to="'/user/' + loggedUser.username">Profil</router-link>
-        <router-link to="/login">Log off</router-link>
+        <router-link style="float:right;" to="/login">Log off</router-link>
         </template>
-        <router-link v-else  to="/login">Log in</router-link>
+        <router-link style="float:right;" v-else  to="/login">Log in</router-link>
       </nav>
     </header>
     <div class="content">

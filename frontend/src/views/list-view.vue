@@ -1,16 +1,13 @@
 <template>
   <div class="list-view">
-    <div class="news-list-nav">
+    <div class="nav">
+      <div class="nav-wrapper">
       <router-link v-if="page > 1" :to="'/list/' + (page - 1)">&lt; prev</router-link>
-      <a v-else class="disabled">&lt; prev</a>
+      <a v-else class="disabled"></a>
       <span>{{ page }}/{{ maxPage }}</span>
       <router-link v-if="hasMore" :to="'/list/' + (page + 1)">more &gt;</router-link>
-      <a v-else class="disabled">more &gt;</a>
-    </div>
-    <div class="filter">
-      <a @click="sort = 'top'">highest score</a>
-      <a @click="sort = 'new'">newest</a>
-      <a @click="sort = 'comments'">most commented</a>
+      <a v-else class="disabled"></a>
+      </div>
     </div>
     <div class="list" :key="displayedView" v-if="displayedView > 0">
       <ul>
@@ -32,96 +29,76 @@ export default {
     return {
       displayedView: Number(this.$route.params.view) || 1,
       displayedPosts: this.$store.getters.activeItems,
-      type: "story"
-      // sort: "top"
+      type: "story",
+      sort: "post_time"
     };
   },
   computed: {
-    page () {
-      return Number(this.$route.params.page) || 1
+    page() {
+      return Number(this.$route.params.page) || 1;
     },
-    maxPage () {
+    maxPage() {
       const { postsPerPage, lists } = this.$store.state;
-      console.log(this.type)
-      return lists[this.type].length ? Math.ceil(lists[this.type].length / postsPerPage) : 1;
+      return lists[this.type].length
+        ? Math.ceil(lists[this.type].length / postsPerPage)
+        : 1;
     },
-    hasMore () {
-      return this.page < this.maxPage
-    },
-    // top() {
-    //   return this.displayedPosts.sort((a, b) => {
-    //     if (a.post_score < b.post_score) return 1;
-    //     if (a.post_score > b.post_score) return -1;
-    //     return 0;
-    //   });
-    // },
-    // new() {
-    //   return this.displayedPosts.sort((a, b) => {
-    //     if (a.post_time < b.post_time) return 1;
-    //     if (a.post_time > b.post_time) return -1;
-    //     return 0;
-    //   });
-    // },
-    // comments() {
-    //   return this.displayedPosts.sort((a, b) => {
-    //     if (a.post_kids === null && b.post_kids === null)return 0;
-    //     if (a.post_kids === null) return 1;
-    //     if (b.post_kids === null) return -1;
-    //     let kids1 = a.post_kids.split(",").length;
-    //     let kids2 = b.post_kids.split(",").length;
-    //     if (kids1 < kids2) return 1;
-    //     if (kids1 > kids2) return -1;
-    //     return 0;
-    //   });
-    // }
+    hasMore() {
+      return this.page < this.maxPage;
+    }
   },
   methods: {
-    loadPosts(to,from) {
+    loadPosts(to, from) {
       this.$store
         .dispatch("FETCH_LIST_DATA", {
-          type: "story"
+          type: "story",
+          orderby: this.sort
         })
         .then(() => {
           this.displayedPosts = this.$store.getters.activePosts;
-          console.log(this.displayedPosts)
-          if (this.view < 0 || this.view > this.maxView) {
+          if (this.page < 0 || this.page > this.maxPage) {
             this.$router.replace(`/list/1`);
             return;
           }
-          // this.transition =
-          //   from === -1 ? null : to > from ? "slide-left" : "slide-right";
           this.displayedView = to;
           this.displayedPosts = this.$store.getters.activePosts;
-          // this.$bar.finish();
         });
     }
   },
   beforeMount() {
-    if (this.$root._isMounted) {
-      console.log("ja")
-      this.loadPosts(this.page);
-    } else {
-      console.log("jasdsd")
-      this.loadPosts(this.page);
-    }
-
-    // watch the current list for realtime updates
-    // this.unwatchList = watchList(this.type, ids => {
-    //   this.$store.commit("SET_LIST", { type: this.type, ids });
-    //   this.$store.dispatch("ENSURE_ACTIVE_ITEMS").then(() => {
-    //     this.displayedPosts = this.$store.getters.activePosts;
-    //   });
-    // });
+    this.loadPosts(this.page);
   },
   watch: {
-    page (to, from) {
-      this.loadPosts(to, from)
+    page(to, from) {
+      this.loadPosts(to, from);
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
+.nav {
+  z-index: 1;
+  font-size: larger;
+  font-weight: 700;
+  background: white;
+  color: var(--main-color);
+  height: 50px;
+  width: 100%;
+  left: 0;
+  position: fixed;
+}
+.nav-wrapper {
+  height: 100%;
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+.nav a {
+  color: var(--main-color);
+}
 .filter {
   display: flex;
   background-color: #fff;
@@ -140,7 +117,7 @@ export default {
 }
 .list {
   position: absolute;
-  margin: 30px 0;
+  margin: 65px 0;
   width: 100%;
   transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
 }

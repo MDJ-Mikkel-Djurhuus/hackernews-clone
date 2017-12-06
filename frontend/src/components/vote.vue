@@ -42,6 +42,7 @@ export default {
           username: this.loggedUser.username
         }).then(result => {
           this.value = 0;
+          this.fetchPost();
         });
       } else {
         insertVote({
@@ -50,8 +51,14 @@ export default {
           value: value
         }).then(result => {
           this.value = value;
+          this.fetchPost();
         });
       }
+    },
+    fetchPost() {
+      return this.$store
+        .dispatch("FETCH_POSTS", { ids: [this.id], force: true })
+        .then(() => {});
     }
   }
 };

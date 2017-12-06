@@ -42,7 +42,7 @@ router.get('/:id?', function (req, res, next) {
 });
 router.get('/ids', function (req, res, next) {
 
-    Post.getIdsOfType("", function (err, rows) {
+    Post.getIdsOfType(req.body, function (err, rows) {
         if (err) {
             res.json(err);
         } else {

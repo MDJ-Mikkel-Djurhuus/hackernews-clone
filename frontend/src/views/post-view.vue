@@ -56,6 +56,9 @@ export default {
     post() {
       return this.$store.state.posts[this.$route.params.id];
     },
+    id(){
+      return this.$route.params.id;
+    },
     loggedUser() {
       return this.$store.state.loggedUser;
     },
@@ -67,15 +70,17 @@ export default {
   },
   // Fetch comments when mounted on the client
   beforeMount() {
-    this.fetchComments();
+    this.fetchPost();
   },
   // refetch comments if post changed
   watch: {
-    post: "fetchComments"
+    post: "fetchPost",
   },
   methods: {
-    fetchPost(store, id) {
-      return store.dispatch("FETCH_POSTS", { ids: [id] }).then(() => {});
+    fetchPost(force) {
+      return this.$store.dispatch("FETCH_POSTS", { ids: [this.$route.params.id], force }).then(() => {
+        this.fetchComments();
+      });
     },
     fetchComments() {
       if (!this.post || !this.post.post_kids) {
@@ -89,12 +94,7 @@ export default {
     comment() {
       api.postComment(this.reply, this.post, this.loggedUser).then(response => {
         this.reply = "";
-        this.$store
-          .dispatch("FETCH_POSTS", {
-            ids: [this.$route.params.id],
-            force: true
-          })
-          .then(() => {});
+        this.fetchPost(true);
       });
     }
   }

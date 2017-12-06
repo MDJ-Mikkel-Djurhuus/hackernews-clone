@@ -6,17 +6,22 @@ import {
 
 export default {
     // ensure data for rendering given list type
-    FETCH_LIST_DATA: ({ commit, dispatch, state }, { type }) => {
+    FETCH_LIST_DATA: ({ commit, dispatch, state }, { type, orderby }) => {
         commit('SET_ACTIVE_TYPE', { type })
-        return fetchIdsOfType(type)
-            .then(ids => {console.log("IDS",ids);commit('SET_LIST', { type, ids })})
+        return fetchIdsOfType({ type, orderby })
+            .then(ids => commit('SET_LIST', { type, ids }))
             .then(() => dispatch('ENSURE_ACTIVE_POSTS'))
     },
 
     // ensure all active posts are fetched
     ENSURE_ACTIVE_POSTS: ({ dispatch, getters }) => {
-        console.log("ENSURE_ACTIVE_POSTS")
+        dispatch('PRE_FETCH_POSTS');
         return dispatch('FETCH_POSTS', { ids: getters.activeIds })
+    },
+    // ensure all active posts are fetched
+    PRE_FETCH_POSTS: ({ dispatch, getters }) => {
+        dispatch('FETCH_POSTS', { ids: getters.prevIds })
+        dispatch('FETCH_POSTS', { ids: getters.nextIds })
     },
 
     FETCH_POSTS: ({ commit, state }, { ids, force }) => {
@@ -28,14 +33,13 @@ export default {
             if (!post) {
                 return true
             }
-            if ((now - post.post_time > 1000 * 60 * 3) || force) {
+            if ((now - post.post_time > 1000 * 60 * 3) || force === true) {
                 return true
             }
             return false
         })
-        console.log(ids)
         if (ids.length) {
-            return fetchPosts(ids).then(posts => {console.log("setpost", posts);commit('SET_POSTS', { posts })})
+            return fetchPosts(ids).then(posts => commit('SET_POSTS', { posts }))
         } else {
             return Promise.resolve()
         }

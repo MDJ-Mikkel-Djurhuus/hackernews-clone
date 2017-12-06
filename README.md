@@ -84,7 +84,7 @@ http://146.185.141.49:8081/post/djur - To delete a user
 In case of feedback and/or troubleshooting, please contact one of the team members. If it is regarding troubleshooting, please take note of the exception thrown.
 
 #### **Team Members**:
-Mikkel Djurhuus
+Mikkel Djurhuus   
 Theis Kjeld Rye
 
 #### **Monitoring**

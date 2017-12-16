@@ -58,6 +58,7 @@ http://146.185.141.49:8081/post/112 - (112 being the id of story) To get a post 
 Post ROUTE 
 
 http://146.185.141.49:8081/post/ - (116 being the id of story) To post a new post
+
 request body: `{
 "pwd_hash":"aYUxbTekKH",
 "username":"nippotam",

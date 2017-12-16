@@ -141,7 +141,7 @@ Our grafana setup:
 `(sum(rate(http_request_duration_ms_bucket{le="100"}[1m])) by (service)+ sum(rate(http_request_duration_ms_bucket{le="300"}[1m])) by (service)) / 2 / sum(rate(http_request_duration_ms_count[1m])) by (service)`
 * Error rate  
 `sum(increase(http_request_duration_ms_count{code=~"^5..$"}[1m])) / sum(increase(http_request_duration_ms_count[1m]))`
-Requests per minute  
+* Requests per minute  
 `sum(rate(http_request_duration_ms_count[1m])) by (service, route, method, code)  * 60`
 * Response time
     * Average: `avg(rate(http_request_duration_ms_sum[1m])`

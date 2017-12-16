@@ -46,16 +46,27 @@ Please make sure you send JSON to our API. It probably is needed to specify in y
 > Content-type application/json
 To be sure, before using any post route, please verify you have valid json. You can use this website to do validate your json. 
 https://jsonformatter.curiousconcept.com
+
 ##### Posts
 
 GET ROUTES
 http://146.185.141.49:8081/post/ - To get all available stories/posts.
 
-
 http://146.185.141.49:8081/post/112 - (112 being the id of story) To get a post by id .
 
-Post ROUTE
-http://146.185.141.49:8081/post/116 - (116 being the id of story) To post a new post
+Post ROUTE 
+http://146.185.141.49:8081/post/ - (116 being the id of story) To post a new post
+
+request body: `{
+"pwd_hash":"aYUxbTekKH",
+"username":"nippotam",
+"hanesst_id":526052,
+"post_parent":-1,
+"post_type":"story",
+"post_title":"6 keys keyboard on iPhone",
+"post_url":"http://www.tikilabs.com/videotiki1.html",
+"post_text":""
+}`
 
 PUT ROUTE
 http://146.185.141.49:8081/post/116 - (116 being the id of story) To update a post
@@ -71,7 +82,12 @@ http://146.185.141.49:8081/user/ - To get all users.
 http://146.185.141.49:8081/user/djur - (djur being the username of a user) To get a user by username
 
 Post ROUTE
-http://146.185.141.49:8081/user/djur - To post a new user
+http://146.185.141.49:8081/user/ - To post a new user
+
+user body: `{
+"pwd_hash":"aYUxbTekKH",
+"username":"nippotam",
+}`
 
 PUT ROUTE
 http://146.185.141.49:8081/user/djur - To update a user
@@ -89,3 +105,4 @@ Theis Kjeld Rye
 
 #### **Monitoring**
 http://146.185.141.49:3000/dashboard/db/hackernews?orgId=1
+login: admin/admin

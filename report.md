@@ -1,14 +1,12 @@
 # Large Systems Development Exam
 
-Introduction
+## Introduction
 We will look at creating a clone of the website “Hacker News”. We will look at Hacker News for system requirements, design and functionality. We will however write write documentation as though it is an original product of our own making. 
 
 Besides the creation of the website, we’ll also create a continuous delivery setup. We will do this to learn more about DevOps(Development Operations). To make simple and mundane developer tasks autonomous is especially interesting. Since it can reduce human errors, and free up time for developers to spend more time on actually producing, hopefully, quality code.
  
-1. Requirements, architecture, design and process
-This section describes the requirements of the project, the architecture that you have chosen, the design of the actual components and the process you undertook to build them in the end.
-1.1. System requirements
-This section should contain an elaborate description of the requirements for the project. This includes the scope of the Hackernews clone (what should it be able to do / what should it not be able to do).
+## Requirements, architecture, design and process
+### System requirements
 The users of our website will be able to read, create, update and delete the tech related links they post. Furthermore, the users should be able to post comments for previously posted links and upvote or downvote links. The system will resemble “Hacker News” and “Reddit”.
 Functional Requirements
 A user should be able to sign up/register
@@ -25,15 +23,13 @@ A user should be able get an overview of all stories posted a by a user
 A user should be able get an overview of all comments posted a by a user
 The website should be responsive, so users can use it on multiple devices (mobile, tablet & computer)
 The website should feel responsive (low response time)
-1.2. Development process
-In this part you should show off by telling us all you know about software development processes and describe which concepts you used to structure your development.
+### Development process
 Deciding for a development method was somewhat difficult. We’re used to working agile, using primarily Scrum and Unified Process. We usually work agile since we don’t know the complete system requirements. As well as we like being able to iterate as we go. Do A/B tests to find the best solution. And in our experience, it’s too difficult, and waste of time trying to define where the product should end up precisely. 
 But in this project, we actually knew exactly what the end product were supposed to be like. Or at least we knew it well enough that, working with a traditional development method such as Waterfall would actually work.
 We compared the pros and cons of using Agile vs Traditional/Waterfall development method. In the end we didn’t feel like the benefits of actually knowing how the end product should be like, was a big enough factor compared to the flexibility gained by using an Agile method.
 In the end, we decided upon using mainly Scrum. This way we knew, we could handle most if not all curve balls thrown at us through the project. And we’d still be able to develop at the same speed, but without spending the time planning everything upfront, as we’d otherwise be forced to if using Traditional/Waterfall.
 
-1.3. Software architecture
-In this section you illustrate and describe the architecture of your Hackernews clone. That is, you describe how your system is structured and how the different parts interact and communicate with each other.
+### Software architecture
 We chose to split our system into two main parts (front/back end) and a database, implementing common term “Three-Layered Services Application”:
 
 Front-end / (Presentation & Business layer)
@@ -48,7 +44,7 @@ Database
 Stores our data
 Dockerized MySQL
 Deployed to Digital Ocean
-1.4. Software design
+### Software design
 Here you should sketch your thoughts on the software design before you started implementing the system. This includes describing the technical concerns you had about the system before you started development, together with all the technical components you came up with to fix these concerns and meet the requirements.
 One of our concerns was how to handle the nested comments and find a way to store the hierarchical data. So we did a little investigation to see how other people solves this issue.
 The standard method of storing hierarchical data is a simple parent-child releationship. Each record in the database includes a “parent id” which then makes it possible to do a recursive query to get the nested structure. Adding a new record to the system only requires the id of the parent, with no other indexing. The advantages of this method are the simplicity and the low cost of adding new records. The cost comes when building the nested structure when you get into larger data sets.
@@ -107,21 +103,19 @@ Display lists of posts
 Vuex store (state management)
 
 
-2. Maintenance and SLA status
+## Maintenance and SLA status
 This section describes the process of maintaining the software over time, starting from the hand-over to the shutting down of your system. The section should be written from the viewpoint of the operator, not the developers.
-2.1. Hand-over
+### Hand-over
 To simulate exchanging systems with another company, we exchanged all the necessary information online, instead of during a meeting. This solution also has an added benefit of flexibility. And everyone now knows how to contact everyone, in case anyone needed further clarification, or bugs were reported.
 We received medium-high quality documentation. It was well written. Easy to find what we needed.
 We didn’t feel well equipped to handle maintaining a system of this kind. On the other hand, that is often the story when trying new things as a software developer. We felt timid and unsure at the start, but as we got into it, and poked around, playing with things, it quickly settled and everything soon became fine.
-2.2. Service-level agreement
-Here you should include the service level agreement you entered together with the group you were operating, including the metric itself and the threshold you agreed upon for that metric. If you had any disagreements about the SLA you should describe them and explain how you found an agreement.
+### Service-level agreement
 This Service-level Agreement (SLA) will define the contract that we, the service provider, will try to guarantee at all times to you, the client. We describe an agreement that we have set in order to have a service that meets all expectations. We set the expected up time of the service, response times and status as well as explain how we calculate the metrics.
 Uptime
 Our services minimum expected up time is set at 95% per month. This means that the website Hacker News will be at a minimum 95% of the month. The way in which we calculate the percentage of up-time of the service is by taking the number of minutes in the month and comparing the minutes of up-time we have had that month.
 Response time
 our service will have a maximum response time of 100 milliseconds. This metric is calculated with the help of an external service, Prometheus. Prometheus will store the response time of all requests sent to our server and the time it takes the server to respond to the client, from this we will be able to see if any request surpasses a response time of 60 milliseconds. This of course is subjective depending on whether the client internet connection is strong. If the client internet connection is by any means deemed to be not of adequate speed this agreement can be acquitted.
-2.3. Maintenance and reliability
-This part should contain a description on how you experienced the actual operation. Explain how you actually monitored the system to ensure that the SLA was upheld, and describe any incidents you experienced that broke (or could potentially break) the SLA. Remember to include documentation for each incident! Finally you should conclude how well the developers responded to your issues and conclude on how reliable the system was overall.
+### Maintenance and reliability
 To ensure that the SLA was upheld we used a combination of Prometheus and Grafana, tools that can be used for storing and visualizing time series data. Prometheus acts as the storage backend and Grafana as the interface for analysis and visualization.
 
 Our grafana setup:
@@ -146,13 +140,10 @@ One major upside to using grafana is that you can set up automated alerts. Which
 
 
 Utilizing docker’s ability to restart services when failing, we didn’t encounter downtime for more than a minute at a time. This has let to a really reliable system with an uptime around 99%. As the data set grew, response time for some of the heavier operation, exceeded the 100ms that was required by the SLA.
-3. Discussion
-3.1. Technical discussion
-This part summarises both the first and second part of the report by giving an overview of the good and bad parts of the whole semester project. Be critical and honest.
+## Discussion
+### Technical discussion
 
-3.2. Group work reflection & Lessons learned
-Give a short reflection on what were the three most important things you learned during the project. The lessons learned are with regards to both, what worked well and what worked not well. These reflections can cover anything from the sections above. That is, development process, architectural and design decisions, implementation, maintenance, etc. If you chose to use roles (project manager, architect, devops etc.) you should use those to reflect on whether they improved the process or not.
-Additionally, focus on both, your work as developers as well as operators.
+### Group work reflection & Lessons learned
 We learned a lot about virtualization, specifically the usage of both Docker and Digital Ocean. We can see the knowledge and skills we’ve gained by using these technologies come in very handy in future projects, and most likely work as well. 
 
 The most difficult thing about using Docker was getting it up and running properly. Albeit once that hurdle is cleared, the continued use of Docker can save a lot of time and make a better development environment.

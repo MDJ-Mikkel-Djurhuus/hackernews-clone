@@ -25,6 +25,7 @@ Non Functional Requirements
 - A user should be able get an overview of all comments posted a by a user
 - The website should be responsive, so users can use it on multiple devices (mobile, tablet & computer)
 - The website should feel responsive (low response time)
+
 ### Development process
 Deciding for a development method was somewhat difficult. We’re used to working agile, using primarily Scrum and Unified Process. We usually work agile since we don’t know the complete system requirements. As well as we like being able to iterate as we go. Do A/B tests to find the best solution. And in our experience, it’s too difficult, and waste of time trying to define where the product should end up precisely. 
 But in this project, we actually knew exactly what the end product were supposed to be like. Or at least we knew it well enough that, working with a traditional development method such as Waterfall would actually work.
@@ -49,10 +50,13 @@ Database
 - Stores our data
 - Dockerized MySQL
 - Deployed to Digital Ocean
+
 ### Software design
 One of our concerns was how to handle the nested comments and find a way to store the hierarchical data. So we did a little investigation to see how other people solves this issue.
 
 The standard method of storing hierarchical data is a simple parent-child releationship. Each record in the database includes a “parent id” which then makes it possible to do a recursive query to get the nested structure. Adding a new record to the system only requires the id of the parent, with no other indexing. The advantages of this method are the simplicity and the low cost of adding new records. The cost comes when building the nested structure when you get into larger data sets.
+
+<img src="https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/hierarchical-data-parent-child.png" style="height: 100px; text-alignment:center;"/>
 
 Pros:
 - Easy to insert new data (no indexing required)
@@ -63,6 +67,8 @@ Cons:
 - Very intensive overhead to report
 
 Another method is to build an index for each record using nested sets. In a nested set each record contains two indices, a “left” and a “right” index number. The indexes are created by starting at the root of the tree, and working from left to right through each node of the tree. If there are any child records, the left and right indexes of the children will be a number larger than the left of the parent, and smaller than the right.
+
+![](https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/hierarchical-data-nested-sets.png)
 
 Pros:
 - Reporting is easy and lightweight
@@ -117,7 +123,6 @@ Implements shared data model with back-end
     Display lists of posts
 * Vuex store (state management)
 
-
 ## Maintenance and SLA status
 ### Hand-over
 To simulate exchanging systems with another company, we exchanged all the necessary information online, instead of during a meeting. This solution also has an added benefit of flexibility. And everyone now knows how to contact everyone, in case anyone needed further clarification, or bugs were reported.
@@ -129,10 +134,13 @@ Uptime
 Our services minimum expected up time is set at 95% per month. This means that the website Hacker News will be at a minimum 95% of the month. The way in which we calculate the percentage of up-time of the service is by taking the number of minutes in the month and comparing the minutes of up-time we have had that month.
 Response time
 our service will have a maximum response time of 100 milliseconds. This metric is calculated with the help of an external service, Prometheus. Prometheus will store the response time of all requests sent to our server and the time it takes the server to respond to the client, from this we will be able to see if any request surpasses a response time of 60 milliseconds. This of course is subjective depending on whether the client internet connection is strong. If the client internet connection is by any means deemed to be not of adequate speed this agreement can be acquitted.
+
 ### Maintenance and reliability
 To ensure that the SLA was upheld we used a combination of Prometheus and Grafana, tools that can be used for storing and visualizing time series data. Prometheus acts as the storage backend and Grafana as the interface for analysis and visualization.
 
 Our grafana setup:
+
+![](https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/Grafana.PNG)
 
 * Uptime
     * Up or down  
@@ -155,7 +163,12 @@ Our grafana setup:
 
 One major upside to using grafana is that you can set up automated alerts. Which can help reduce reaction time for developers. Here is shown how we used it to get alerts when the service went down.
 
+![](https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/Grafana-uptime-metrics.PNG)
+![](https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/Grafana-uptime-alert.PNG)
+![](https://github.com/MDJ-Mikkel-Djurhuus/hackernews-clone/blob/master/files/Grafana-uptime-alert-slack.PNG)
+
 Utilizing docker’s ability to restart services when failing, we didn’t encounter downtime for more than a minute at a time. This has let to a really reliable system with an uptime around 99%. As the data set grew, response time for some of the heavier operation, exceeded the 100ms that was required by the SLA.
+
 ## Discussion
 ### Technical discussion
 

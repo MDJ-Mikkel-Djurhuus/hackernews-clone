@@ -135,8 +135,10 @@ To ensure that the SLA was upheld we used a combination of Prometheus and Grafan
 Our grafana setup:
 
 * Uptime
-    * Up or down: `up{job="backend"}`
-    * % of last 30 days: `avg_over_time(up{job='backend'}[30d]) * 100`
+    * Up or down  
+    `up{job="backend"}`
+    * % of last 30 days  
+    `avg_over_time(up{job='backend'}[30d]) * 100`
 * Apdex score  
 `(sum(rate(http_request_duration_ms_bucket{le="100"}[1m])) by (service)+ sum(rate(http_request_duration_ms_bucket{le="300"}[1m])) by (service)) / 2 / sum(rate(http_request_duration_ms_count[1m])) by (service)`
 * Error rate  
@@ -144,9 +146,12 @@ Our grafana setup:
 * Requests per minute  
 `sum(rate(http_request_duration_ms_count[1m])) by (service, route, method, code)  * 60`
 * Response time
-    * Average: `avg(rate(http_request_duration_ms_sum[1m])`
-    * Median: `histogram_quantile(0.5, sum(rate(http_request_duration_ms_bucket{method="GET"}[1m])) by (le, service, route, method))`
-    * 95th: `histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[1m])) by (le, service, route, method))`
+    * Average  
+    `avg(rate(http_request_duration_ms_sum[1m])`
+    * Median  
+    `histogram_quantile(0.5, sum(rate(http_request_duration_ms_bucket{method="GET"}[1m])) by (le, service, route, method))`
+    * 95th  
+    `histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[1m])) by (le, service, route, method))`
 
 One major upside to using grafana is that you can set up automated alerts. Which can help reduce reaction time for developers. Here is shown how we used it to get alerts when the service went down.
 

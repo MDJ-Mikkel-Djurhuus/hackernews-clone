@@ -120,8 +120,6 @@ To ensure that the SLA was upheld we used a combination of Prometheus and Grafan
 
 Our grafana setup:
 
-
-
 Uptime
 Up or down: up{job="backend"}
 % of last 30 days: avg_over_time(up{job='backend'}[30d]) * 100
@@ -136,8 +134,6 @@ Average: avg(rate(http_request_duration_ms_sum[1m])
 Median: histogram_quantile(0.5, sum(rate(http_request_duration_ms_bucket{method="GET"}[1m])) by (le, service, route, method))
 95th: histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[1m])) by (le, service, route, method))
 One major upside to using grafana is that you can set up automated alerts. Which can help reduce reaction time for developers. Here is shown how we used it to get alerts when the service went down.
-
-
 
 Utilizing docker’s ability to restart services when failing, we didn’t encounter downtime for more than a minute at a time. This has let to a really reliable system with an uptime around 99%. As the data set grew, response time for some of the heavier operation, exceeded the 100ms that was required by the SLA.
 ## Discussion
@@ -154,7 +150,4 @@ The idea hand-over and operating someone else’s software was a nice experience
 
 Since we both have work experience operating other’s systems, we decided to try to simulate an online-only hand-over. Which neither of us had really tried before. This was an interesting experience, and we were able to see some of the pros and cons of both, doing the hand-over physically during a meeting for example, or the online version, where everything was written text and therefore communication a bit harder. But at the same time, easier to ask questions later on in the process, if some should arrive.
 
-
 Due to being a bit too busy with various tasks, we feel our response time as developer were below what we would have liked. That being said, our fix time from reading the issues to solving the problem were satisfactory. In the future we have to set up a better system for alarming us, and reminding us about issues. 
-
-Conclusion

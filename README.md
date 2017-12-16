@@ -50,13 +50,14 @@ https://jsonformatter.curiousconcept.com
 ##### Posts
 
 GET ROUTES
+
 http://146.185.141.49:8081/post/ - To get all available stories/posts.
 
 http://146.185.141.49:8081/post/112 - (112 being the id of story) To get a post by id .
 
 Post ROUTE 
-http://146.185.141.49:8081/post/ - (116 being the id of story) To post a new post
 
+http://146.185.141.49:8081/post/ - (116 being the id of story) To post a new post
 request body: `{
 "pwd_hash":"aYUxbTekKH",
 "username":"nippotam",
@@ -69,30 +70,36 @@ request body: `{
 }`
 
 PUT ROUTE
+
 http://146.185.141.49:8081/post/116 - (116 being the id of story) To update a post
 
 DELETE ROUTE
+
 http://146.185.141.49:8081/post/112 - (112 being the id of story) To delete a story/post by id
 
 ##### User
 
 GET ROUTES
+
 http://146.185.141.49:8081/user/ - To get all users.
 
 http://146.185.141.49:8081/user/djur - (djur being the username of a user) To get a user by username
 
 Post ROUTE
+
 http://146.185.141.49:8081/user/ - To post a new user
 
-user body: `{
+request body: `{
 "pwd_hash":"aYUxbTekKH",
 "username":"nippotam",
 }`
 
 PUT ROUTE
+
 http://146.185.141.49:8081/user/djur - To update a user
 
 DELETE ROUTE
+
 http://146.185.141.49:8081/post/djur - To delete a user
 
 

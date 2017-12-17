@@ -171,6 +171,11 @@ Utilizing docker’s ability to restart services when failing, we didn’t encou
 
 ## Discussion
 ### Technical discussion
+This project introduced us to a lot of new technologies and has suited us with the ability to take a project from start to finish and beyond. Using jenkins to handle both CI & CD was very effecient and together with docker made it possible to go from an issue request to the fix being in production as fast as we could code it.
+
+Because of our previous work and the familiarity, we chose to go with a SQL database for data persistance. We now think that it would've been more logical to go with a graph database, like Neo4J, as they are more suited to store relational data.
+
+Even though our implementation of pagination was very effective, we still had inadequete performance because of the way we calculated scoring and comment counts on the fly. One way this could've been improved would've been to store them in our table and then recalculate on CRUD operations.
 
 ### Group work reflection & Lessons learned
 We learned a lot about virtualization, specifically the usage of both Docker and Digital Ocean. We can see the knowledge and skills we’ve gained by using these technologies come in very handy in future projects, and most likely work as well. 
